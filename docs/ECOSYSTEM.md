@@ -5,7 +5,7 @@
 
 ## 1. Purpose
 
-MicoPay is evolving from a single wallet into a collection of reusable financial components and vertical products. This document explains how those repositories relate to one another and prevents experimental work from being mistaken for production infrastructure.
+MicoPay's main goal is to let people in Mexico turn tokenized CETES and digital dollars into cash without a bank, through a network of local cash providers and on-chain escrow. Around that network, MicoPay is evolving from a single wallet into a collection of reusable financial components and vertical products. This document explains how those repositories relate to one another and prevents experimental work from being mistaken for production infrastructure.
 
 The ecosystem separates three layers:
 
@@ -17,7 +17,7 @@ The ecosystem separates three layers:
 
 ```text
 ┌──────────────────────────── Products ────────────────────────────┐
-│ MicoPay Café │ MicoPay Rentas │ Factoring │ future verticals   │
+│ Cash network │ MicoPay Café │ MicoPay Rentas │ Factoring         │
 └───────────────────────────────┬──────────────────────────────────┘
                                 │
 ┌────────────────────── Core infrastructure ───────────────────────┐
@@ -30,7 +30,13 @@ The ecosystem separates three layers:
         └────────────────┘  └────────────────┘  └────────────────┘
 ```
 
-The diagram shows product dependencies, not a claim that every integration is already operational.
+The diagram shows the intended architecture, not a claim that every integration is already operational. Today only the cash network is built on MicoPay Protocol. MicoPay Café and MicoPay Rentas are standalone applications, and Factoring is research.
+
+### Custody model
+
+MicoPay does not take custody of user funds in the wallet or the cash network. Users sign their own transactions, and funds move between their wallets and on-chain escrow rather than through a MicoPay account. External wallets may act as signers, but flows that send user funds to a MicoPay-controlled account are out of scope.
+
+Issuer OS is a separate case: its design leaves reserves with each issuer or an authorized custodian, and every asset must declare who holds, issues, signs, and redeems.
 
 ## 3. Core infrastructure
 
@@ -43,6 +49,8 @@ Responsibilities:
 - mobile wallet and supporting backend;
 - Stellar payments;
 - cash-provider discovery and coordination;
+- escrow-backed sale of digital assets for cash;
+- optional bank withdrawals over SPEI through Etherfuse, subject to build, provider, and KYC configuration;
 - chat and transaction workflows;
 - Soroban escrow integration;
 - user-authorized signing and mobile key protection.
@@ -86,17 +94,29 @@ Bridge remains separate from the retail cash network. Shared functionality must 
 
 ## 4. Products
 
+### MicoPay cash network
+
+Repository: [micopay-protocol](https://github.com/Micopay/micopay-protocol)
+
+The primary product. A seller locks a digital asset in an on-chain escrow, meets a local cash provider, and receives pesos in hand. The provider receives the asset once the exchange is confirmed. Exchanging for cash requires no bank account; SPEI is a separate, optional exit. The escrow tracks the digital side of the exchange and cannot verify that cash changed hands.
+
+| Asset | Cash exchange | Status |
+|---|---|---|
+| USDC (digital dollars) | Escrow-backed sale for cash | Stellar testnet; mainnet deployment pending |
+| XLM | Escrow-backed sale for cash | Stellar testnet; mainnet deployment pending |
+| Tokenized CETES | Escrow-backed sale for cash | In development; trading is gated |
+
 ### MicoPay Café
 
 Repository: [micopay-cafe](https://github.com/Micopay/micopay-cafe)
 
-A prototype for coffee buyers and cooperatives to calculate and settle producer payments, including crop-loan repayment and ISO 20022 records. It demonstrates how a vertical product can consume MicoPay payment infrastructure.
+A prototype for coffee buyers and cooperatives to calculate and settle producer payments, including crop-loan repayment and ISO 20022 records. It settles directly on Stellar and does not yet consume MicoPay Protocol.
 
 ### MicoPay Rentas
 
 Repository: [micopay-rentas](https://github.com/Micopay/micopay-rentas)
 
-A testnet demonstration of rental escrow, cancellation policies, damage deposits, claims, and settlement. Listings are fictional and the repository must remain explicit about its testnet status.
+A testnet demonstration of rental escrow, cancellation policies, damage deposits, claims, and settlement, using its own `escrow-v2` contract. Listings are fictional and the repository must remain explicit about its testnet status.
 
 ### MicoPay Factoring
 
@@ -142,10 +162,12 @@ Every public repository should declare one of these states near the top of its R
 | Active development | Maintained implementation whose production scope must still be stated explicitly |
 | Prototype | Working demonstration that is not offered as a production service |
 | Testnet demo | Demonstration restricted to test networks and test assets |
+| Experimental | Working code exploring unproven ideas, not a supported product |
 | Architecture and design | Planned system with documents but no complete implementation |
 | Research | Investigation, market analysis, or feasibility work |
 | Reference project | Educational or reusable example, not a supported product |
 | Program archive | Historical deliverables retained for traceability |
+| Website | Public site with no financial functionality |
 | Archived | Read-only repository no longer under active development |
 
 ## 7. Repository conventions
@@ -187,10 +209,12 @@ Every public repository should use `micopay`, plus the domain-specific topics th
 
 - evaluate renaming `micopaybridge` to `micopay-bridge`;
 - evaluate renaming `micopay-landig` to `micopay-landing`;
+- evaluate renaming `AvalesLiquidos`, `factoring`, and `proyectobb101` to follow the naming convention;
 - document whether `coffee-payments` is a predecessor or maintained reference for `micopay-cafe`;
 - document the boundary between `AvalesLiquidos` and `micopay-rentas`;
 - move new BB101-derived product work to canonical repositories;
-- add consistent status notices and security policies to every active repository;
+- add consistent status notices, custody models, and security policies to every active repository;
+- enable private vulnerability reporting on every public repository;
 - archive repositories only after preserving links to their successors.
 
 ## 10. Governance
