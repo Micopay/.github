@@ -171,7 +171,7 @@ Every public repository should declare one of these states near the top of its R
 
 ### Topics
 
-All repositories use `micopay` and `open-finance`, plus domain-specific topics such as `stellar`, `xrpl`, `payments`, `escrow`, `factoring`, `iso-20022`, `rwa`, or `x402`.
+Every public repository should use `micopay`, plus the domain-specific topics that actually describe it, such as `open-finance`, `stellar`, `xrpl`, `payments`, `escrow`, `factoring`, `iso-20022`, `rwa`, or `x402`.
 
 ## 8. Architectural rules
 
