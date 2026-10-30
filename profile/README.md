@@ -35,22 +35,23 @@ Stellar · XRP Ledger · regulated providers · local payment rails
 |---|---|---|
 | [MicoPay Protocol](https://github.com/Micopay/micopay-protocol) | Mobile wallet, cash-provider network, chat, and escrow for selling digital assets for cash | Active development on testnet |
 | [MicoPay Issuer OS](https://github.com/Micopay/micopay-issuer-os) | Multi-issuer accounting, reserves, reconciliation, and asset operations | Architecture and design |
-| [MicoPay Bridge](https://github.com/Micopay/micopaybridge) | Agent payments, x402 services, atomic settlement, and cross-network experiments | Experimental infrastructure |
+| [MicoPay Bridge](https://github.com/Micopay/micopaybridge) | Agent payments, x402 services, atomic settlement, and cross-network experiments | Experimental |
 
 ## Products and verticals
 
 | Project | Purpose | Status |
 |---|---|---|
+| [MicoPay cash network](https://github.com/Micopay/micopay-protocol) | Sale of digital assets for cash through local providers and escrow | Active development on testnet |
 | [MicoPay Café](https://github.com/Micopay/micopay-cafe) | Payments to coffee producers with loan repayment and ISO 20022 records | Prototype |
 | [MicoPay Rentas](https://github.com/Micopay/micopay-rentas) | Rental payments, cancellation rules, deposits, and dispute-aware escrow | Testnet demo |
-| [MicoPay Factoring](https://github.com/Micopay/factoring) | CFDI-backed factoring research using XRPL credit primitives and MicoPay settlement | Research and design |
+| [MicoPay Factoring](https://github.com/Micopay/factoring) | CFDI-backed factoring research using XRPL credit primitives and MicoPay settlement | Research |
 
 ## Research and reference implementations
 
 | Project | Purpose | Status |
 |---|---|---|
 | [Coffee Payments](https://github.com/Micopay/coffee-payments) | Educational XRPL and ISO 20022 desktop implementation | Reference project |
-| [Avales Líquidos](https://github.com/Micopay/AvalesLiquidos) | Liquid rent-guarantee rails on XRPL | Experimental testnet reference |
+| [Avales Líquidos](https://github.com/Micopay/AvalesLiquidos) | Liquid rent-guarantee rails on XRPL | Experimental |
 | [BB101 Deliverables](https://github.com/Micopay/proyectobb101) | Historical program deliverables | Program archive |
 | [MicoPay Web](https://github.com/Micopay/micopay-landig) | Public website and lead-capture application | Website |
 
