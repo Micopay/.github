@@ -75,7 +75,7 @@ Stellar · XRP Ledger · regulated providers · local payment rails
 
 Each repository documents its own setup, maturity, and contribution path. Check its README and open issues before starting work.
 
-Do not disclose vulnerabilities in public issues. Use the repository's **Security** tab or GitHub private vulnerability reporting when available.
+Do not disclose vulnerabilities in public issues. Report them privately to [eric@micopay.com.mx](mailto:eric@micopay.com.mx).
 
 ## Important notice
 
